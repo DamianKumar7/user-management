@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 @Service
@@ -38,7 +39,7 @@ public class UserCrudService {
     public UserCrudResponse getUserDataById(String userId) {
         UserCrudResponse response = new UserCrudResponse();
         try{
-            Optional<UserData> userData  = userDataRespository.findById(userId);
+            Optional<UserData> userData  = userDataRespository.findById(new BigInteger(userId));
             if(userData.isEmpty()){
                 throw new UserCrudException(ErrorConstants.COULD_NOT_FIND_USER);
             }
@@ -55,7 +56,7 @@ public class UserCrudService {
 
     private UserRequestDTO decorateUserDTO(UserData userData){
         UserRequestDTO userRequestDTO = new UserRequestDTO();
-        userRequestDTO.setUserId(userData.getId());
+        userRequestDTO.setUserId(String.valueOf(userData.getId()));
         userRequestDTO.setNickname(userData.getNickname());
         userRequestDTO.setEmailAddres(userData.getEmailAddress());
         userRequestDTO.setUsername(userData.getUsername());
@@ -66,7 +67,7 @@ public class UserCrudService {
     public UserCrudResponse updateUser(UserRequestDTO userRequestDTO, String userId) {
         UserCrudResponse response = new UserCrudResponse();
         try{
-            Optional<UserData> userData  = userDataRespository.findById(userId);
+            Optional<UserData> userData  = userDataRespository.findById(new BigInteger(userId));
             if(userData.isEmpty()){
                 throw new UserCrudException(ErrorConstants.COULD_NOT_FIND_USER);
             }
@@ -85,7 +86,7 @@ public class UserCrudService {
     public UserCrudResponse deleteUser(String userId) {
         UserCrudResponse response = new UserCrudResponse();
         try{
-            Optional<UserData> userData  = userDataRespository.findById(userId);
+            Optional<UserData> userData  = userDataRespository.findById(new BigInteger(userId));
             if(userData.isEmpty()){
                 throw new UserCrudException(ErrorConstants.COULD_NOT_FIND_USER);
             }

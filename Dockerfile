@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=build /app/target/user-management-0.0.1-SNAPSHOT.jar /app/user-management.jar
 
 # Expose the port on which the application will run
-EXPOSE 8080 5005
+EXPOSE 8082 5005
 
 # Command to run the Spring Boot application
 ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "/app/user-management.jar"]

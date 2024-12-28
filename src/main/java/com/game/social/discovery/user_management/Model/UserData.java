@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.math.BigInteger;
+
 @Entity
 @Table(name = "user_data")
 @Getter
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private BigInteger id;
 
     @Column
     private String username;
